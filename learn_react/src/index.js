@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Todos from './components/todos/Todos';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -11,7 +12,8 @@ root.render(
   // 검색해볼것
   
   //<React.StrictMode>
-    <App />
+    //<App />  // 시작 파일을 변경할 수 있다.
+    <Todos />
   //</React.StrictMode>
 );
 
