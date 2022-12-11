@@ -1,9 +1,36 @@
 // 컴포넌트 만들기
-// 함수 이름은 파스칼 케이스
+// 컴포넌트는 파스칼 케이스 적용
+// 컴포넌트의 함수명 = 파일명
+// 확장자가 jsx여야 해당 자동완성 기능등을 이용할 수 있음
 
-function Hello() {
-    return <h1>Hello React!</h1>;
+//function Hello(props) {
+    // props : 컴포넌트의 속성="값"으로 받는 객체   
+
+        
+    //console.log(props);
+    //return <h1>Hello {props.text}</h1>;
+
+
+    // 비구조화 할당
+    //const { text, active } = props;
+
+
+function Hello({ text, active, color }) {  // 매개변수에서 바로 비구조화 할당
+    
+    //return <h1>Hello {text}</h1>;  
+
+    // 단축평가를 이용한 스타일 적용
+    // 느낌표"!" 조건부 랜더링
+    return <h1 style={{color : active && color }}>Hello {text} {active && "!"}</h1>;  
+
 }
+
+
+// 컴포넌트의 기본값 설정
+Hello.defaultProps = { 
+    text : "react",
+    color : "black"
+};  
 
 
 export default Hello;
