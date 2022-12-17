@@ -1,0 +1,23 @@
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: row; /* 나열 방향(주축) */
+  justify-content: flex-start; /* 주축 기준으로 설정된다 */
+  align-items: center;
+  width: auto;
+  height: 500px;
+  border: 3px solid black;
+}
+.container .box {
+  flex-basis: 100px;
+  height: 100px;
+  background: red;
+  border: 1px solid #000000;
+}
+.container .box + .container .box {
+  background: blue;
+}/*# sourceMappingURL=index.css.map */

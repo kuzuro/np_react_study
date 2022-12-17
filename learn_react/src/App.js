@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from "react";
 import Todos from "./components/todos/Todos";
+import Inputs from "./components/Inputs";
 
 function App() {
 
@@ -78,7 +79,8 @@ function App() {
         </div> */}
 
 
-        <Todos />
+        {/* <Todos /> */}
+        <Inputs />
 
       </>
   );

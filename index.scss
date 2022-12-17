@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+
+    flex-direction: row;/* 나열 방향(주축) */
+    justify-content: flex-start;/* 주축 기준으로 설정된다 */
+
+    align-items: center;//flex-start; //* 교차축에 대한 설정 */    
+    //align-items의 기본값이 strech 이다
+
+
+    width:auto; 
+    height:500px;
+    border:3px solid black;
+
+    .box {        
+        // 기준값. flex-grow, flex-shrink에 적용됨
+        flex-basis: 100px;
+
+        // 남는 여백을 가져가는 비율
+        //flex-grow: 1;  
+
+
+        // 줄어들때의 비율
+        //flex-shrink: 1;  
+
+
+        height:100px;
+
+        background: red;
+        border:1px solid #000000;
+
+        &:nth-child(1) {
+            //flex-basis: 200px;
+            //flex-grow: 2;
+            //flex-shrink: 2;
+            //flex:1;
+        }
+
+
+        // + 인접 선택자
+        & + & {
+            //margin-left:100px;
+            background:blue;
+        }
+    }
+}

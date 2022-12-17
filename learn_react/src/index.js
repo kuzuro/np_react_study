@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Todos from './components/todos/Todos';
+import Main from './components/mainPage/Main';
+import Inputs from './components/Inputs';
+import TodoReducer from './components/todoReducer/Todos';
+
+import Styled from './components/Styled';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +18,13 @@ root.render(
   
   //<React.StrictMode>
     //<App />  // 시작 파일을 변경할 수 있다.
-    <Todos />
+
+
+    // <Todos />
+    //<Main/>
+    //<Inputs/>
+    <TodoReducer />
+    //<Styled />
   //</React.StrictMode>
 );
 

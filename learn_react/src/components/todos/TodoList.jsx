@@ -1,10 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
+import { RemoveContext } from "./Todos"
 
-function TodoList({todos, onRemove, onToggle}) {
+function TodoList({todos, /* onRemove, 컨텍스트로 사용할 요소라 생략 가능 */onToggle}) {
 
 
     // 리스트를 관리할 컴포넌트 (삭제, 토글)
-
     console.log("TodoList 렌더링");
 
 
@@ -13,7 +13,7 @@ function TodoList({todos, onRemove, onToggle}) {
     return (
         <ul>
             {todos.map((todo) => (
-                <TodoItem key={todo.id} todo={todo} onRemove={onRemove} onToggle={onToggle}/>
+                <TodoItem key={todo.id} todo={todo} /* onRemove={onRemove} */ onToggle={onToggle}/>
             ))}
         </ul>
 
@@ -30,13 +30,17 @@ function TodoList({todos, onRemove, onToggle}) {
 
 
 // jsx 에 1개 이상의 컴포넌트를 만들 수 있음
-function TodoItem({todo, onRemove, onToggle}) {
+ function TodoItem({todo, /* onRemove,  */onToggle}) {
+
+    
+    // 컨텍스트를 이용하면 인자를 받지 않아도 바로 사용할 수 있다.
+    const onRemove = useContext(RemoveContext);
+
 
     //console.log("TodoItem 렌더링");
 
     // 스프레드 연산자를 이용해 변수에 값 할당
     const {text, id, done} = todo;    
-
 
     // 리무브 핸들러
     const handleRemove = (e) => { 

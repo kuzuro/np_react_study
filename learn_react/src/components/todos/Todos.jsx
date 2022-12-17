@@ -1,10 +1,6 @@
-import { useCallback, useRef, useState } from "react";
+import { createContext, useCallback, useRef, useState } from "react";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
-
-
-
-
 
 
 const initialState = [
@@ -20,6 +16,8 @@ const initialState = [
     }
 
 ];
+
+export const RemoveContext = createContext(null);
 
 
 function Todos() {
@@ -68,13 +66,18 @@ function Todos() {
         setTodos((todos) => todos.map(todo => 
             todo.id === id ? {...todo, done : !todo.done} : todo
         ));
+
+        
     }, []);
 
 
     return (
         <>
-            <TodoInput onCreate={onCreate} />
-            <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle}/>
+            <RemoveContext.Provider value={onRemove}>
+                <TodoInput onCreate={onCreate} />
+                {/* <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle}/> */}
+                <TodoList todos={todos} onToggle={onToggle}/>
+            </RemoveContext.Provider>
         </>
     );
 
