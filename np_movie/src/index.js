@@ -4,13 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import Todos from './components/practice-api/Todos';
+import Movies from './components/movies/Movies';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>    
       {/* <React.StrictMode> */}
-      <App />
+      {/* <App /> */}
+      {/* <Todos /> */}
+      <Movies />
       {/* </React.StrictMode> */}
     </BrowserRouter>
   
