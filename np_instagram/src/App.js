@@ -7,6 +7,7 @@ import Home from "./components/pages/Home";
 import Search from "./components/pages/Search";
 import Edit from "./components/pages/Edit";
 import Profile from "./components/pages/Profile";
+import User from "./components/pages/User";
 
 function App() {
   return (
@@ -15,17 +16,20 @@ function App() {
         <Routes>
 
           <Route path="/*" element={<Main />}>
+            <Route path="/*" element={<Home />} />
             <Route path="home" element={<Home />} />
+            
             <Route path="search" element={<Search />} />
+
             {/* <Route path="edit/:id" element={<Edit />} /> */}
             <Route path="edit">
               <Route path="" element={<Edit />} />
               <Route path=":id" element={<Edit />} />
-
-
-
             </Route>
+
             <Route path="profile" element={<Profile />} />
+
+            <Route path="user/:id" element={<User />} />
           </Route>
 
           <Route path="signin" element={<SignIn />} />

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { isCompositeComponent } from "react-dom/test-utils";
+import { useMutation, useQuery } from "react-query";
 import styled from "styled-components";
+import { client } from "../..";
 import { deleteComments, getComments, getCurrentUser, postComments, postComments2 } from "../../api/admin";
 import { useUserId, useUserIdDispatch } from "../../data/auth";
 import { Input } from "./input";
@@ -16,6 +18,8 @@ function CommentList({postId}) {
 
 
 
+
+
     const currnetUserId = useUserId();
 
 
@@ -26,27 +30,30 @@ function CommentList({postId}) {
 
 
     useEffect(() => { 
-        getComments(postId, page).then((data) => { 
-            
+
+        postCommentMuation.mutate(postId, page)
+
+        /* 
+        getComments(postId, page).then((data) => {             
             if(data.length < 10) {
                 setIsLast(true);
             }
-
             setCommentList([...commnetList, ...data])
-        });
+        }); */
 
     }, [page, postId]);
 
-    
+    /* 
     const handleSubmit = () => {
         if(input === "") {
             alert("댓글을 입력해주세요");
             return;            
         } 
-        postComments(postId, input).then((res) => console.log(res));
+        //postComments(postId, input).then((res) => console.log(res));
+
 
         getData()
-    };
+    }; */
 
 
 
@@ -55,7 +62,7 @@ function CommentList({postId}) {
         postComments2({postId, content:input}).then((res) => console.log(res));
     };
 
-
+/* 
     const handleDelete = async (commentId) => { 
         if(!window.confirm("삭제하시겠습니까?")) {
             return;
@@ -63,7 +70,7 @@ function CommentList({postId}) {
 
         await deleteComments(commentId);
     }
-
+ */
 
 
     const getData = useCallback(() => { 
@@ -76,6 +83,60 @@ function CommentList({postId}) {
     }
 
 
+    
+    const postCommentMuation = useMutation(postComments, {
+
+        onSuccess : (data) => { 
+            console.log("onSuccess");
+            console.log(data);
+            client.fetchQuery("comments");
+
+        }
+    });
+
+
+    const handleSubmit = () => {
+        postCommentMuation.mutate({postId, content:input});
+    };
+    
+
+    const {data, isLoading, error} = useQuery("comments", () => getComments(postId, page), { 
+        onSuccess : (data) => {
+            console.log("getComments");
+            console.log(data);
+            
+            setCommentList(data)
+        }
+    });
+
+
+
+    
+    const deleteMuation = useMutation(deleteComments, {
+
+        onSuccess : (data) => { 
+            console.log("onSuccess");
+            client.fetchQuery("comments");
+
+        }
+    });
+
+
+
+    const handleDelete = async (commentId) => { 
+        deleteMuation.mutate(commentId);
+        /* if(!window.confirm("삭제하시겠습니까?")) {
+            return;
+        }
+
+        await deleteComments(commentId); */
+    }
+
+    
+
+    if(isLoading) return <div>로딩중</div>    
+    console.log("commnetList : " + commnetList);
+
     return (
         <Container>
 
@@ -84,8 +145,9 @@ function CommentList({postId}) {
 
                 <CommnetItem key={comment.id}>
                     {comment.content}
-                    
 
+                    
+                    <span>{currnetUserId.id}, {comment.author.id }</span>
                     {currnetUserId.id === comment.author.id && 
                         <BtnDelete onClick={() => handleDelete(comment.id)}>삭제</BtnDelete> }
                     

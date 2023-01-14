@@ -14,12 +14,12 @@ function Post({post}) {
 
     const userId = useUserId();
 
-    console.log(userId)
 
 
     return (
         <Continer>
-            <UserInfo author={author} img_list={img_list}/>
+
+            <UserInfo user={author} img_list={img_list}/>
 
             <PostImageBox img_list={img_list} />
 

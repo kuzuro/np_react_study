@@ -24,6 +24,7 @@ export const postUser = async (form) => {
     return result;
   } catch (err) {
     console.log(err);
+    throw new Error(err.message);
   }
 };
 
@@ -61,8 +62,12 @@ export const patchProfile = (form) => {
   return axios.patch("users/profile", form);
 };
 
-export const postPost = (form) => {
-  return axios.post("posts", form);
+export const postPost = async (form) => {
+
+  const {data } = await axios.post("posts", form);
+
+  console.log(data)
+  return data.data;
 };
 
 export const getAllPost = () => {
@@ -94,7 +99,7 @@ export const getComments = async (postId, page = 1) => {
 
 
 
-export const postComments = (postId, content) => {  
+export const postComments = ({postId, content}) => {  
   return axios.post(`/comments?postId=${postId}&content=${content}`);
 }
 
@@ -140,3 +145,32 @@ export const convertUrl = async (url) => {
 
   return new File([data], fileName, metaData);
 }
+
+
+
+export const searchUser = async (name) => { 
+  //const {data} = await axios.get(`/users/search?name=${name}`);
+
+  const {data} = await axios.get("/users/search", {
+    params : { 
+      name : name
+    }
+  });
+
+  return data;
+}
+
+
+export const getUserById = async (id) => { 
+  const { data } = await axios.get("/users/" + id);
+  return data.data
+}
+
+
+
+export const getUserPost = async (id) => { 
+  const { data } = await axios.get("/posts/author/" + id);
+  return data.data
+}
+
+

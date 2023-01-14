@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 import { getAllPost, getCurrentUser, getPosts } from "../../api/admin";
 import { useUserId, useUserIdDispatch } from "../../data/auth";
@@ -7,10 +8,37 @@ import Post from "../home/Post";
 function Home() {
 
   const [postList, setPostList] = useState([]);
+
+  
+  const {data, isLoading } = useQuery("posts", () => getPosts(page), {
+    onSuccess : (data) => {      
+      //console.log("success");
+      //console.log(data);
+    },
+    onError : (err) => { 
+      alert(err.response.data.message);
+    }
+
+
+  });
+
+
   const [page, setPage] = useState(1);
   const [isLast, setIsLast] = useState(false);
 
+
+
+
   const dispatch = useUserIdDispatch();
+
+
+  
+  useEffect(() => { 
+    const fetchData = async () => {
+      
+    }
+  }, []);
+
 
   useEffect(() => { 
      getCurrentUser().then(user => dispatch(user));
@@ -50,9 +78,17 @@ function Home() {
     setPage(page + 1);
   } */
 
+
+  if(isLoading) {
+    return (
+      <div>로딩중</div>
+    );
+  }
+
   return (
     <Container>
-      {postList.map((post) => (
+      {/* {postList.map((post) => ( */}
+      {data.map((post) => (
         
         <Post key={post.id} post={post}></Post>
       ))}

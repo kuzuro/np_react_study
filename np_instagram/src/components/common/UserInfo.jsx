@@ -1,25 +1,23 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import PostImageBox from "./PostImageBox";
 
-function UserInfo({author}) {
+function UserInfo({user}) {
 
-    const {name, profile_url} = author;
+    const {id, name, profile_url} = user;
+    
 
     return (
-        <Container>
-
+        <Container to={`/user/${id}`}>
             <ImgCircle profile_url={profile_url}/>
-
             <UserName>{name}</UserName>
-
-
         </Container>
     );
 
 }
 
 
-const Container = styled.div`
+const Container = styled(Link)`
     display: flex;
     padding:10px;
     overflow: hidden;

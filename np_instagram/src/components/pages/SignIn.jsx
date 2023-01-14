@@ -21,21 +21,24 @@ function SignIn() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-
-    await singIn(inputs);
-    //const token = await singIn(inputs);
-    //window.localStorage.setItem("access-token", token);
-    const user = await getCurrentUser();
-    console.log(user.id)
-    dispatch(user.id);
-
-    navigate("/");
-
-    /* singIn(inputs).then((token) => {
-      //console.log(token)
+    try {
+      await singIn(inputs);
+      //const token = await singIn(inputs);
       //window.localStorage.setItem("access-token", token);
-      navigate("/");      
-    }); */
+      const user = await getCurrentUser();
+      console.log(user.id)
+      dispatch(user.id);
+
+      navigate("/");
+
+      /* singIn(inputs).then((token) => {
+        //console.log(token)
+        //window.localStorage.setItem("access-token", token);
+        navigate("/");      
+      }); */
+    } catch(e) {
+      console.log(e);
+    }
   };
 
   const toSignUp = () => {
