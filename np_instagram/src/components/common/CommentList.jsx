@@ -33,44 +33,7 @@ function CommentList({postId}) {
 
         postCommentMuation.mutate(postId, page)
 
-        /* 
-        getComments(postId, page).then((data) => {             
-            if(data.length < 10) {
-                setIsLast(true);
-            }
-            setCommentList([...commnetList, ...data])
-        }); */
-
     }, [page, postId]);
-
-    /* 
-    const handleSubmit = () => {
-        if(input === "") {
-            alert("댓글을 입력해주세요");
-            return;            
-        } 
-        //postComments(postId, input).then((res) => console.log(res));
-
-
-        getData()
-    }; */
-
-
-
-
-    const handleSubmit2 = () => {
-        postComments2({postId, content:input}).then((res) => console.log(res));
-    };
-
-/* 
-    const handleDelete = async (commentId) => { 
-        if(!window.confirm("삭제하시겠습니까?")) {
-            return;
-        }
-
-        await deleteComments(commentId);
-    }
- */
 
 
     const getData = useCallback(() => { 
@@ -144,9 +107,7 @@ function CommentList({postId}) {
             {commnetList.map((comment) => (
 
                 <CommnetItem key={comment.id}>
-                    {comment.content}
-
-                    
+                    {comment.content}                    
                     <span>{currnetUserId.id}, {comment.author.id }</span>
                     {currnetUserId.id === comment.author.id && 
                         <BtnDelete onClick={() => handleDelete(comment.id)}>삭제</BtnDelete> }
