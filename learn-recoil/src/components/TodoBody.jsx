@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { filterdTotosState, filterState, todosState } from "../state/todos";
 import TodoItem from "./TodoItem";
@@ -8,14 +9,20 @@ function TodoBody() {
     //const [todos, setTodos] = useRecoilState(todosState);
     //const todos = useRecoilValue(todosState);
 
-    const todos = useRecoilValue(filterdTotosState);
-    const setFilterState = useSetRecoilState(filterState);
+    //const todos = useRecoilValue(filterdTotosState);
+    //const setFilterState = useSetRecoilState(filterState);
     
+    
+    const todos = useSelector((state) => state.todos);
+
+
+
+
 
     return (
-        <>
+        <>{/* 
         <div>
-        <label>
+            <label>
                 <input type="radio" name="filter" value="all" defaultChecked onChange={(e) => setFilterState(e.target.value)}/>전체
             </label>
 
@@ -26,7 +33,7 @@ function TodoBody() {
             <label>
                 <input type="radio" name="filter" value="undone" onChange={(e) => setFilterState(e.target.value)}/>안한거
             </label>
-        </div>
+        </div> */}
         <ul>
             {
                 todos.map((todo) => {
